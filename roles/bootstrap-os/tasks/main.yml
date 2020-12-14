@@ -32,8 +32,13 @@
     - '"Fedora" in os_release.stdout'
     - '"VARIANT_ID=coreos" not in os_release.stdout'
 
+- include_tasks: bootstrap-kubic.yml
+  when: '"ID=opensuse-microos" in os_release.stdout'
+
 - include_tasks: bootstrap-opensuse.yml
-  when: '"openSUSE" in os_release.stdout'
+  when:
+    - '"openSUSE" in os_release.stdout'
+    - '"ID=opensuse-microos" not in os_release.stdout'
 
 - name: Create remote_tmp for it is used by another module
   file:
